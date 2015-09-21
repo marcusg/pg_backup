@@ -1,5 +1,3 @@
 require "pg_backup/version"
 
-module PgBackup
-  # Your code goes here...
-end
+load File.expand_path("../pg_backup/tasks/dump.rake", __FILE__)
