@@ -1,6 +1,3 @@
-require 'pg_backup'
-require 'rails'
-
 module PgBackup
   class Railtie < Rails::Railtie
     railtie_name :pg_backup
