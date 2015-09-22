@@ -1,3 +1,10 @@
+namespace :load do
+  task :defaults do
+    # add the dump dir to the linked directories
+    set :linked_dirs, fetch(:linked_dirs, []).push('dump')
+  end
+end
+
 namespace :pg_backup do
   namespace :dump do
 
@@ -6,8 +13,12 @@ namespace :pg_backup do
       on roles(:app) do
         within current_path do
           with rails_env: fetch(:environment) do
-            # TODO: use capistrano ask if user is sure about this action (overwrites db)!
-            rake "dump:load"
+            ask :answer, "Are you sure? This overwrites the '#{fetch(:environment)}' database! Type 'YES' if you want to continue..."
+            if fetch(:answer) == "YES"
+              rake "dump:load"
+            else
+              puts "Cancelled."
+            end
           end
         end
       end
@@ -30,9 +41,8 @@ namespace :pg_backup do
         within shared_path do
           with rails_env: fetch(:environment) do
             file_path = Dir.glob("#{ENV.fetch('PWD')}/dump/*.backup").last
-            # TODO: exit if there is no dump
+            fail "Can't find a dump file!" unless file_path
             file_name = File.basename file_path
-            # TODO: ensure dump dir on remote
             upload! file_path, "#{shared_path}/dump/#{file_name}"
           end
         end
