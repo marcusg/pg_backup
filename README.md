@@ -27,7 +27,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+rake pg_backup:dump:create # create a dump from local db and save it locally
+rake pg_backup:dump:load   # import latest dump from local file 
+```
+
+### Capistrano integration
+add to your ```Capfile```
+```
+require "pg_backup/capistrano"
+````
+this adds some capistrano tasks
+```
+cap <env> pg_backup:dump:create    # creates remote dump in remote dir
+cap <env> pg_backup:dump:load      # imports latest remote dump in remote db
+cap <env> pg_backup:dump:download  # downloads latest remote dump to local dir
+cap <env> pg_backup:dump:upload    # uploads to remote 
+```
+
+### deploy-mate integration
+add to your ```Capfile```
+
+```
+require "pg_backup/deploy_mate"
+```
+
+## Credits
+https://gist.github.com/hopsoft/56ba6f55fe48ad7f8b90
 
 ## Contributing
 
