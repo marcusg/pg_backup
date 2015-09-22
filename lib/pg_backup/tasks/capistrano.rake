@@ -15,7 +15,7 @@ namespace :pg_backup do
           with rails_env: fetch(:environment) do
             ask :answer, "Are you sure? This overwrites the '#{fetch(:environment)}' database! Type 'YES' if you want to continue..."
             if fetch(:answer) == "YES"
-              rake "dump:load"
+              rake "pg_backup:dump:load"
             else
               puts "Cancelled."
             end
@@ -29,7 +29,7 @@ namespace :pg_backup do
       on roles(:app) do
         within current_path do
           with rails_env: fetch(:environment) do
-            rake "dump:create"
+            rake "pg_backup:dump:create"
           end
         end
       end
