@@ -1,6 +1,13 @@
 # PgBackup
 
-TODO: Write a gem description
+This gem adds rake tasks to your application for creating and restoring postgres dumps. 
+
+## Requirements
+``` 
+bundler
+rake 
+capistrano # optional
+```
 
 ## Installation
 
