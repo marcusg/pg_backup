@@ -6,6 +6,7 @@ namespace :pg_backup do
       on roles(:app) do
         within current_path do
           with rails_env: fetch(:environment) do
+            # TODO: use capistrano ask if user is sure about this action (overwrites db)!
             rake "dump:load"
           end
         end
