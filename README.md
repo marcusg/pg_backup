@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/pg_backup.svg)](http://badge.fury.io/rb/pg_backup)
 
-This gem adds rake tasks to your rails application for creating and restoring postgres dumps.
+This gem adds rake tasks to your rails application for creating and restoring postgres dumps. The dumps are created and restored with ```pg_dump``` and ```pg_restore``` - these tools are included in a full postgres installation, but also available as standalone binaries.
 
 ## Requirements
 ```
