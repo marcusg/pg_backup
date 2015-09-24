@@ -53,6 +53,11 @@ add to your ```Capfile```
 require "pg_backup/integration/deploy_mate"
 ```
 
+## ToDo
+- allow change of dump dir (local and remote)
+- tests? https://github.com/technicalpickles/capistrano-spec
+- rotate local and remote dumps (keep last x dumps)
+
 ## Credits
 https://gist.github.com/hopsoft/56ba6f55fe48ad7f8b90
 
