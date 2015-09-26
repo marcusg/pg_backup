@@ -26,7 +26,7 @@ And then execute:
 
 ```
 rake pg_backup:dump:create # create a dump from local db and save it locally
-rake pg_backup:dump:load   # import latest dump from local file
+rake pg_backup:dump:load   # import latest dump from local file into local db
 ```
 
 ### Capistrano integration 
@@ -38,10 +38,10 @@ require "pg_backup/integration/capistrano"
 ````
 this adds some capistrano tasks
 ```
-cap <env> pg_backup:dump:create    # creates remote dump in remote dir
-cap <env> pg_backup:dump:load      # imports latest remote dump in remote db
+cap <env> pg_backup:dump:create    # creates remote dump (from remote db) in remote dir
+cap <env> pg_backup:dump:load      # imports latest remote dump into remote db
 cap <env> pg_backup:dump:download  # downloads latest remote dump to local dir
-cap <env> pg_backup:dump:upload    # uploads to remote
+cap <env> pg_backup:dump:upload    # uploads latest local dump to remote dir
 ```
 
 ### deploy-mate integration 
