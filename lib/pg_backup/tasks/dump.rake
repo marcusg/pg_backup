@@ -1,4 +1,4 @@
-require "../helpers/database"
+require "helpers/database"
 include PgBackup::Helpers::Database
 
 namespace :pg_backup do
