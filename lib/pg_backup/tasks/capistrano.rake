@@ -1,7 +1,7 @@
 namespace :load do
   task :defaults do
     # add the dump dir to the linked directories
-    set :linked_dirs, fetch(:linked_dirs, []).push('dump')
+    set :linked_dirs, -> { fetch(:linked_dirs, []).push('dump') }
   end
 end
 
