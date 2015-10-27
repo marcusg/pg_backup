@@ -1,10 +1,7 @@
 namespace :load do
   task :defaults do
-    # set default names for dump directories
-    set :pg_backup_local_dump_dir, 'dump'
-    set :pg_backup_remote_dump_dir, 'dump'
     # add the dump dir to the linked directories
-    set :linked_dirs, fetch(:linked_dirs, []).push(fetch(:pg_backup_remote_dump_dir))
+    set :linked_dirs, fetch(:linked_dirs, []).push('dump')
   end
 end
 
@@ -15,7 +12,7 @@ namespace :pg_backup do
     task :load do
       on roles(:app) do
         within current_path do
-          with rails_env: fetch(:environment), dump_dir: fetch(:pg_backup_remote_dump_dir) do
+          with rails_env: fetch(:environment) do
             ask :answer, "Are you sure? This overwrites the '#{fetch(:environment)}' database! Type 'YES' if you want to continue..."
             if fetch(:answer) == "YES"
               rake "pg_backup:dump:load"
@@ -31,7 +28,7 @@ namespace :pg_backup do
     task :create do
       on roles(:app) do
         within current_path do
-          with rails_env: fetch(:environment), dump_dir: fetch(:pg_backup_remote_dump_dir) do
+          with rails_env: fetch(:environment) do
             rake "pg_backup:dump:create"
           end
         end
@@ -41,12 +38,12 @@ namespace :pg_backup do
     desc "Upload latest db dump from (local) dump dir"
     task :upload do
       on roles(:app) do
-        within current_path do
+        within shared_path do
           with rails_env: fetch(:environment) do
-            file_path = Dir.glob("#{ENV.fetch('PWD')}/#{fetch(:pg_backup_local_dump_dir)}/*.backup").last
+            file_path = Dir.glob("#{ENV.fetch('PWD')}/dump/*.backup").last
             fail "Can't find a dump file!" unless file_path
             file_name = File.basename file_path
-            upload! file_path, "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}"
+            upload! file_path, "#{shared_path}/dump/#{file_name}"
           end
         end
       end
@@ -55,12 +52,12 @@ namespace :pg_backup do
     desc "Download remote db dump"
     task :download do
       on roles(:app) do
-        within current_path do
+        within shared_path do
           with rails_env: fetch(:environment) do
-            file_name = capture("ls -t #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)} | head -1")
+            file_name = capture("ls -t #{shared_path}/dump | head -1")
             # TODO: exit if there is no dump
             # TODO: ensure dump dir
-            download! "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}", "#{fetch(:pg_backup_local_dump_dir)}"
+            download! "#{shared_path}/dump/#{file_name}", "dump"
           end
         end
       end

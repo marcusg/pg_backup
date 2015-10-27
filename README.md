@@ -29,13 +29,7 @@ rake pg_backup:dump:create # create a dump from local db and save it locally
 rake pg_backup:dump:load   # import latest dump from local file into local db
 ```
 
-If you want to create or load a dump file from a different directory, use the ``` DUMP_DIR ``` env var:
-```
-rake DUMP_DIR=my_dump_dir pg_backup:dump:create
-rake DUMP_DIR=my_dump_dir pg_backup:dump:load
-```
-
-### Capistrano integration
+### Capistrano integration 
 (https://github.com/capistrano/capistrano)
 
 add to your ```Capfile```
@@ -50,13 +44,7 @@ cap <env> pg_backup:dump:download  # downloads latest remote dump to local dir
 cap <env> pg_backup:dump:upload    # uploads latest local dump to remote dir
 ```
 
-To overwrite dump directories in capistrano, place something like this in your deploy.rb or \<stage\>.rb
-```
-set :pg_backup_local_dump_dir, 'my_dump_dir'
-set :pg_backup_remote_dump_dir, 'my_dump_dir'
-```
-
-### deploy-mate integration
+### deploy-mate integration 
 (https://github.com/hanseventures/deploy-mate)
 
 add to your ```Capfile```
@@ -66,6 +54,7 @@ require "pg_backup/integration/deploy_mate"
 ```
 
 ## ToDo
+- allow change of dump dir (local and remote)
 - tests? https://github.com/technicalpickles/capistrano-spec
 - rotate local and remote dumps (keep last x dumps)
 
