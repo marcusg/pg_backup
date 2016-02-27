@@ -1,7 +1,6 @@
 module PgBackup
   module Helpers
     module Database
-
       def with_database_config
         yield(
           connection_config.fetch(:host, 'localhost'),
@@ -14,7 +13,6 @@ module PgBackup
       def connection_config
         ActiveRecord::Base.connection_config
       end
-
     end
   end
 end

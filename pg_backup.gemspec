@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = PgBackup::VERSION
   spec.authors       = ["Marcus Geissler"]
   spec.email         = ["marcus3006@gmail.com"]
-  spec.summary       = %q{Create, restore, download and upload postgres dumps locally and on remote servers using capistrano.}
-  spec.description   = %q{Create, restore, download and upload postgres dumps locally and on remote servers using capistrano. Really!}
+  spec.summary       = 'Create, restore, download and upload postgres dumps locally and on remote servers using capistrano.'
+  spec.description   = 'Create, restore, download and upload postgres dumps locally and on remote servers using capistrano. Really!'
   spec.homepage      = "https://github.com/marcusg/pg_backup"
   spec.license       = "MIT"
 

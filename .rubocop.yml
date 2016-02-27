@@ -1,0 +1,33 @@
+Style/Encoding:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 500
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ClassLength:
+  Max: 200
+
+StringLiterals:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - db/schema.rb
+    - bin/*
+    - db/migrate/*

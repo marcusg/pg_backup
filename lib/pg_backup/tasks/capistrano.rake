@@ -10,7 +10,6 @@ end
 
 namespace :pg_backup do
   namespace :dump do
-
     desc "Loads the backup dump"
     task :load do
       on roles(:app) do
@@ -44,7 +43,7 @@ namespace :pg_backup do
         within current_path do
           with rails_env: fetch(:environment) do
             file_path = Dir.glob("#{ENV.fetch('PWD')}/#{fetch(:pg_backup_local_dump_dir)}/*.backup").last
-            fail "Can't find a dump file!" unless file_path
+            raise "Can't find a dump file!" unless file_path
             file_name = File.basename file_path
             upload! file_path, "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}"
           end
@@ -60,11 +59,10 @@ namespace :pg_backup do
             file_name = capture("ls -t #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)} | head -1")
             # TODO: exit if there is no dump
             # TODO: ensure dump dir
-            download! "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}", "#{fetch(:pg_backup_local_dump_dir)}"
+            download! "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}", fetch(:pg_backup_local_dump_dir).to_s
           end
         end
       end
     end
-
   end
 end
