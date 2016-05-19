@@ -72,7 +72,7 @@ https://gist.github.com/hopsoft/56ba6f55fe48ad7f8b90
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/pg_backup/fork )
+1. Fork it ( https://github.com/marcusg/pg_backup/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
