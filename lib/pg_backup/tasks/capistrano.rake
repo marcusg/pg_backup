@@ -53,13 +53,20 @@ namespace :pg_backup do
 
     desc "Download remote db dump"
     task :download do
+      run_locally { FileUtils.mkdir_p fetch(:pg_backup_local_dump_dir).to_s }
       on roles(:app) do
         within current_path do
           with rails_env: fetch(:environment) do
-            file_name = capture("ls -t #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)} | head -1")
-            # TODO: exit if there is no dump
-            # TODO: ensure dump dir
-            download! "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}", fetch(:pg_backup_local_dump_dir).to_s
+            if !test("[ -d #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)} ]")
+              error "Folder '#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}' does not exits!"
+            else
+              file_name = capture("ls -t #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)} | head -1")
+              if file_name.empty?
+                error "No dump file found in '#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}'!"
+              else
+                download! "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}", fetch(:pg_backup_local_dump_dir).to_s
+              end
+            end
           end
         end
       end
