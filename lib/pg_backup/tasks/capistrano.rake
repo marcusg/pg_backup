@@ -42,7 +42,7 @@ namespace :pg_backup do
       on roles(:app) do
         within current_path do
           with rails_env: fetch(:environment) do
-            file_path = Dir.glob("#{ENV.fetch('PWD')}/#{fetch(:pg_backup_local_dump_dir)}/*.backup").last
+            file_path = Dir.glob("#{ENV.fetch('PWD')}/#{fetch(:pg_backup_local_dump_dir)}/*.backup").sort.last
             raise "Can't find a dump file!" unless file_path
             file_name = File.basename file_path
             upload! file_path, "#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}/#{file_name}"
