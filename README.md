@@ -31,10 +31,10 @@ rake pg_backup:dump:create # create a dump from local db and save it locally
 rake pg_backup:dump:load   # import latest dump from local file into local db
 ```
 
-If you want to create or load a dump file from a different directory, use the ``` DUMP_DIR ``` env var:
+If you want to create or load a dump file from a different directory or file name, use the ``` PG_DUMP_DIR ``` and/or ```PG_DUMP_FILE``` (relative to dump directory) env vars:
 ```
-rake DUMP_DIR=/my/dump/dir pg_backup:dump:create
-rake DUMP_DIR=/my/dump/dir pg_backup:dump:load
+rake PG_DUMP_DIR=/my/dump/dir PG_DUMP_FILE=mydump.backup pg_backup:dump:create
+rake PG_DUMP_DIR=/my/dump/dir PG_DUMP_FILE=mydump.backup pg_backup:dump:load
 ```
 
 ### Capistrano integration
@@ -43,7 +43,7 @@ rake DUMP_DIR=/my/dump/dir pg_backup:dump:load
 add to your ```Capfile```
 ```
 require "pg_backup/integration/capistrano"
-````
+```
 this adds some capistrano tasks
 ```
 cap <env> pg_backup:dump:create    # creates remote dump (from remote db) in remote dir
@@ -52,7 +52,7 @@ cap <env> pg_backup:dump:download  # downloads latest remote dump to local dir
 cap <env> pg_backup:dump:upload    # uploads latest local dump to remote dir
 ```
 
-To overwrite dump directories in capistrano, place something like this in your deploy.rb or \<stage\>.rb
+To overwrite dump directories in capistrano, place something like this in your ```deploy.rb``` or ```<stage>.rb```
 ```
 set :pg_backup_local_dump_dir, '/my/dump/dir'
 set :pg_backup_remote_dump_dir, '/my/dump/dir'
