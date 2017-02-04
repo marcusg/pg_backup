@@ -52,6 +52,12 @@ cap <env> pg_backup:dump:download  # downloads latest remote dump to local dir
 cap <env> pg_backup:dump:upload    # uploads latest local dump to remote dir
 ```
 
+**NOTE:** Ensure environment variable set in capistrano files (needed for pg_backup to use correct database).
+```
+# staging.rb
+set :environment, 'staging'
+```
+
 To overwrite dump directories in capistrano, place something like this in your ```deploy.rb``` or ```<stage>.rb```
 ```
 set :pg_backup_local_dump_dir, '/my/dump/dir'
