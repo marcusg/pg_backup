@@ -1,4 +1,4 @@
-# PgBackup
+# pg_backup 
 
 ## create and restore postgres dumps with capistrano
 
@@ -7,16 +7,16 @@
 This gem adds rake tasks to your rails application for creating and restoring postgres dumps. The dumps are created with ```pg_dump``` and restored with ```pg_restore``` - these tools are included in a full postgres installation, but also available as standalone binaries (needed if your db is not located in the application server).
 
 ## Requirements
-```
-rails
-capistrano # optional
-```
+- rails >= 3
+- capistrano (optional)
+- postgresql with ```pg_dump``` and ```pg_restore``` binaries 
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
+# Gemfile
 gem 'pg_backup'
 ```
 
@@ -41,7 +41,8 @@ rake PG_DUMP_DIR=/my/dump/dir PG_DUMP_FILE=mydump.backup pg_backup:dump:load
 (https://github.com/capistrano/capistrano)
 
 add to your ```Capfile```
-```
+```ruby
+# Capfile
 require "pg_backup/integration/capistrano"
 ```
 this adds some capistrano tasks
@@ -53,13 +54,13 @@ cap <env> pg_backup:dump:upload    # uploads latest local dump to remote dir
 ```
 
 **NOTE:** Ensure environment variable set in capistrano files (needed for pg_backup to use correct database).
-```
+```ruby
 # staging.rb
 set :environment, 'staging'
 ```
 
 To overwrite dump directories in capistrano, place something like this in your ```deploy.rb``` or ```<stage>.rb```
-```
+```ruby
 set :pg_backup_local_dump_dir, '/my/dump/dir'
 set :pg_backup_remote_dump_dir, '/my/dump/dir'
 ```
@@ -69,7 +70,8 @@ set :pg_backup_remote_dump_dir, '/my/dump/dir'
 
 add to your ```Capfile```
 
-```
+```ruby
+# Capfile
 require "pg_backup/integration/deploy_mate"
 ```
 
