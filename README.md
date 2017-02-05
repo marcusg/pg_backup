@@ -75,6 +75,17 @@ add to your ```Capfile```
 require "pg_backup/integration/deploy_mate"
 ```
 
+## Example usage
+
+Create a dump on production server, download it, upload the dump to prestage and load it into prestage database
+
+```
+bundle exec cap production pg_backup:dump:create
+bundle exec cap production pg_backup:dump:download
+bundle exec cap prestage pg_backup:dump:upload
+bundle exec cap prestage pg_backup:dump:load
+```
+
 ## Credits
 https://gist.github.com/hopsoft/56ba6f55fe48ad7f8b90
 
