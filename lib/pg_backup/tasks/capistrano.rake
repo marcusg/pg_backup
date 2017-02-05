@@ -71,5 +71,21 @@ namespace :pg_backup do
         end
       end
     end
+
+    desc "List remote db dumps"
+    task :list do
+      on roles(:app) do
+        within current_path do
+          with rails_env: fetch(:environment) do
+            if !test("[ -d #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)} ]")
+              error "Folder '#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}' does not exits!"
+            else
+              info "List of dumps in '#{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}'"
+              execute "ls -lh #{shared_path}/#{fetch(:pg_backup_remote_dump_dir)}"
+            end
+          end
+        end
+      end
+    end
   end
 end

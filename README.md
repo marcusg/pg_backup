@@ -1,4 +1,4 @@
-# pg_backup 
+# pg_backup
 
 ## create and restore postgres dumps with capistrano
 
@@ -9,7 +9,7 @@ This gem adds rake tasks to your rails application for creating and restoring po
 ## Requirements
 - rails >= 3
 - capistrano (optional)
-- postgresql with ```pg_dump``` and ```pg_restore``` binaries 
+- postgresql with ```pg_dump``` and ```pg_restore``` binaries
 
 ## Installation
 
@@ -51,6 +51,7 @@ cap <env> pg_backup:dump:create    # creates remote dump (from remote db) in rem
 cap <env> pg_backup:dump:load      # imports latest remote dump into remote db
 cap <env> pg_backup:dump:download  # downloads latest remote dump to local dir
 cap <env> pg_backup:dump:upload    # uploads latest local dump to remote dir
+cap <env> pg_backup:dump:list      # shows list of dumps in remote dir
 ```
 
 **NOTE:** Ensure environment variable set in capistrano files (needed for pg_backup to use correct database).
