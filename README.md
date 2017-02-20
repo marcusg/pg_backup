@@ -78,13 +78,13 @@ require "pg_backup/integration/deploy_mate"
 
 ## Example usage
 
-Create a dump on production server, download it, upload the dump to prestage and load it into prestage database
+Create a dump on production server, download it, upload the dump to staging and load it into staging database
 
 ```
 bundle exec cap production pg_backup:dump:create
 bundle exec cap production pg_backup:dump:download
-bundle exec cap prestage pg_backup:dump:upload
-bundle exec cap prestage pg_backup:dump:load
+bundle exec cap staging pg_backup:dump:upload
+bundle exec cap staging pg_backup:dump:load
 ```
 
 ## Credits
