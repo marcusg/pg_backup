@@ -87,6 +87,11 @@ bundle exec cap staging pg_backup:dump:upload
 bundle exec cap staging pg_backup:dump:load
 ```
 
+**PRO TIP:** Use the simple **sync** task, which runs exactly the same commands:
+```
+bundle exec rake pg_backup:sync PG_DUMP_SOURCE=production PG_DUMP_TARGET=staging
+```
+
 ## Credits
 https://gist.github.com/hopsoft/56ba6f55fe48ad7f8b90
 
